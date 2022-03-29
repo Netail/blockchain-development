@@ -28,7 +28,7 @@ contract IceCream {
     }
 
     function addTemp(int8 _temp) public {
-        require(msg.sender != sensor, "Only the sensor is allowed to add temperatures");
+        require(msg.sender == sensor, "Only the sensor is allowed to add temperatures");
 
         temperatures.push(_temp);
     }
