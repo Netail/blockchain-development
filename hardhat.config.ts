@@ -16,6 +16,12 @@ task('accounts', 'Prints the list of accounts', async (args, hre) => {
 
 const config: HardhatUserConfig = {
     solidity: '0.8.5',
+    networks: {
+        kovan: {
+            url: `https://eth-kovan.alchemyapi.io/v2/`, // Append Alchemy API Token
+            accounts: [''] // Add secret key
+        }
+    }
 }
 
 export default config;

@@ -52,7 +52,7 @@ contract WeightTracker is ERC721URIStorage {
 
     function withdraw() external returns (uint256) {
         uint8[] memory measurements = entries[msg.sender].measurements;
-        require(measurements[measurements.length - 1] == entries[msg.sender].goal, "You have not reached your goal yet");
+        require(measurements[measurements.length - 1] <= entries[msg.sender].goal, "You have not reached your goal yet");
 
         payable(msg.sender).transfer(entries[msg.sender].reward);
 

@@ -83,7 +83,19 @@ describe('Weight Tracker', () => {
         setContractTx = await contract.addMeasurement(70);
         await setContractTx.wait();
 
-        expect(contract.withdraw()).to.be.ok;
+        expect(await contract.withdraw()).to.be.an('object');
+    });
+
+    it('Only allow withdraw if goal got hit (Below goal)', async () => {
+        let setContractTx;
+
+        setContractTx = await contract.setGoal(70);
+        await setContractTx.wait();
+
+        setContractTx = await contract.addMeasurement(65);
+        await setContractTx.wait();
+
+        expect(await contract.withdraw()).to.be.an('object');
     });
 
 });
