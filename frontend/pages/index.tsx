@@ -84,16 +84,16 @@ const Home: NextPage = () => {
 
                         <Card>
                             <h3>Goal</h3>
-                            <input type='number' min={0} placeholder='Goal (kg)' ref={goalRef} step={0.1} />
+                            <input type='number' min={0} max={500} placeholder='Goal (kg)' ref={goalRef} />
                             <br/><br/>
-                            <input type='number' min={0} placeholder='Reward (Eth - default 0.1)' ref={rewardRef} />
+                            <input type='number' min={0} max={500} placeholder='Reward (Eth - default 0.1)' step={0.1} ref={rewardRef} />
                             <br/><br/>
                             <Button text='Set goal' onClick={handleSetGoal} />
                         </Card>
 
                         <Card>
                             <h3>Measurements</h3>
-                            <input type='number' min={0} placeholder='Measurement (kg)' ref={measurementRef} />
+                            <input type='number' min={0} max={500} placeholder='Measurement (kg)' ref={measurementRef} />
                             <br/><br/>
                             <Button text='Add measurement' onClick={handleAddMeasurement} />
                         </Card>

@@ -2,6 +2,7 @@
 
 $color-primary: #121826;
 $color-secondary: #212839;
+$color-thirdly: #283044;
 $color-highlight: #5f59f7;
 $color-text-secondary: #8c8ca6;
 $color-text-sub: #575775;
@@ -31,4 +32,21 @@ h1, h2, h3,
 h4, h5, h6 {
     margin-top: 0;
     margin-bottom: 0.5em;
+}
+
+input {
+    background-color: $color-thirdly;
+    padding: 1rem;
+    min-width: 15rem;
+    border-radius: 1rem;
+    border: 0;
+    color: $color-text;
+
+    &:focus {
+        outline: 0;
+    }
+
+    &::placeholder {
+        color: $color-text-secondary;
+    }
 }
