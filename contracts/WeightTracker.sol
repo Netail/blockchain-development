@@ -17,11 +17,13 @@ contract WeightTracker is ERC721URIStorage {
 
     address private ownerAddress;
     address private contractAddress;
+    string private rewardURI;
     mapping(address => Entry) private entries;
 
-    constructor() ERC721("WeightTracker", "WGHT") {
+    constructor(string memory _rewardURI) ERC721("WeightTracker", "WGHT") {
         ownerAddress = msg.sender;
         contractAddress = address(this);
+        rewardURI = _rewardURI;
     }
 
     modifier onlyOwner() {
@@ -29,7 +31,7 @@ contract WeightTracker is ERC721URIStorage {
         _;
     }
 
-    modifier onlySetGoal(address _target) {
+    modifier onlyHasGoal(address _target) {
         require(entries[_target].goal != 0, "No goal for this address has been set yet");
         _;
     }
@@ -44,11 +46,11 @@ contract WeightTracker is ERC721URIStorage {
         });
     }
 
-    function addMeasurement(uint8 _measurement) public onlySetGoal(msg.sender) {
+    function addMeasurement(uint8 _measurement) public onlyHasGoal(msg.sender) {
         entries[msg.sender].measurements.push(_measurement);
     }
 
-    function withdrawl() external returns (uint256) {
+    function withdraw() external returns (uint256) {
         uint8[] memory measurements = entries[msg.sender].measurements;
         require(measurements[measurements.length - 1] == entries[msg.sender].goal, "You have not reached your goal yet");
 
@@ -60,13 +62,17 @@ contract WeightTracker is ERC721URIStorage {
 
         uint256 newItemId = _tokenIds.current();
         _mint(msg.sender, newItemId);
-        _setTokenURI(newItemId, "https://ipfs.io/ipfs/QmcDamHSansZfsAKdmSbb3Puxw6GkNgSYAN8VgzcHbnWTZ?filename=nft.json");
+        _setTokenURI(newItemId, rewardURI);
 
         return newItemId;
     }
 
-    function getGoalOfAddress(address _target) public view onlyOwner onlySetGoal(_target) returns (uint8) {
-        return entries[_target].goal;
+    function getGoal() public view onlyHasGoal(msg.sender) returns (uint8) {
+        return entries[msg.sender].goal;
+    }
+
+    function getMeasurements() public view onlyHasGoal(msg.sender) returns (uint8[] memory) {
+        return entries[msg.sender].measurements;
     }
 
     function getContractBalance() public view returns (uint) {
