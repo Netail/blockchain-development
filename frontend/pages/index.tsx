@@ -32,7 +32,7 @@ const Home: NextPage = () => {
 
         const goal = Number(goalRef.current?.value);
         const reward = web3?.utils.toWei(rewardRef.current?.value || "0.1", "ether");
-        if (goal < 0) {
+        if (goal < 1) {
             alert('Input cannot be lower than 1');
             return;
         }
@@ -47,7 +47,7 @@ const Home: NextPage = () => {
         if (!contract) return;
 
         const measurement = Number(measurementRef.current?.value);
-        if (measurement < 0) {
+        if (measurement < 1 || isNaN(measurement)) {
             alert('Input cannot be lower than 1');
             return;
         }
