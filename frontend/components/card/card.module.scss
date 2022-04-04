@@ -1,5 +1,7 @@
+@import '../../styles/variables';
+
 .card {
-    background-color: #212839;
+    background-color: $color-secondary;
     border-radius: 1rem;
     padding: 1rem;
     margin: 1rem;

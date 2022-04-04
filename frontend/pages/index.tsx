@@ -7,11 +7,14 @@ import { contractAddress } from '../constants/contract-address';
 import { contractABI } from '../constants/contract-abi';
 import Card from '../components/card/card';
 import Button from '../components/button/button';
+import InfoBlock, { InfoBlockType } from '../components/info-block/info-block';
 
 const Home: NextPage = () => {
     const [web3, setWeb3] = useState<Web3>();
     const [account, setAccount] = useState<string>();
     const [contract, setContract] = useState<Contract>();
+    const [info, setInfo] = useState<string>('');
+    const [infoType, setInfoType] = useState<InfoBlockType>(InfoBlockType.INFO);
     const goalRef = useRef<HTMLInputElement>(null);
     const rewardRef = useRef<HTMLInputElement>(null);
     const measurementRef = useRef<HTMLInputElement>(null);
@@ -30,39 +33,69 @@ const Home: NextPage = () => {
     const handleSetGoal = () => {
         if (!contract) return;
 
+        setInfo('');
+
         const goal = Number(goalRef.current?.value);
         const reward = web3?.utils.toWei(rewardRef.current?.value || "0.1", "ether");
         if (goal < 1) {
-            alert('Input cannot be lower than 1');
+            showInfoBlock('Input cannot be lower than 1', InfoBlockType.ERROR);
             return;
         }
 
         contract.methods.setGoal(goal).send({
             from: account,
             value: reward,
-        });
+        }).then(() => {
+            showInfoBlock('Successfully set goal', InfoBlockType.SUCCESS);
+        }).catch((err: any) => {
+            showInfoBlock('Oops, something went wrong...', InfoBlockType.ERROR);
+            console.error(err);
+        });;
     }
 
     const handleAddMeasurement = () => {
         if (!contract) return;
 
+        setInfo('');
+
         const measurement = Number(measurementRef.current?.value);
         if (measurement < 1 || isNaN(measurement)) {
-            alert('Input cannot be lower than 1');
+            showInfoBlock('Input cannot be lower than 1', InfoBlockType.ERROR);
             return;
         }
 
         contract.methods.addMeasurement(measurement).send({
             from: account,
-        });
+        }).then(() => {
+            showInfoBlock('Successfully added measurement', InfoBlockType.SUCCESS);
+        }).catch((err: any) => {
+            showInfoBlock('Oops, something went wrong...', InfoBlockType.ERROR);
+            console.error(err);
+        });;
     }
 
     const handleWithdraw = () => {
         if (!contract) return;
 
+        setInfo('');
+
         contract.methods.withdraw().send({
             from: account,
+        }).then(() => {
+            showInfoBlock("Congratulations, you've hit your goal!", InfoBlockType.SUCCESS)
+        }).catch((err: any) => {
+            showInfoBlock('Oops, something went wrong...', InfoBlockType.ERROR);
+            console.error(err);
         });
+    }
+
+    const showInfoBlock = (text: string, type: InfoBlockType) => {
+        setInfo(text);
+        setInfoType(type);
+
+        setTimeout(() => {
+            setInfo('');
+        }, 3000);
     }
 
     useEffect(() => {
@@ -82,6 +115,8 @@ const Home: NextPage = () => {
                     <>
                         <p>Hello, { account }</p>
 
+                        {info.length > 0 && <InfoBlock text={info} type={infoType} />}
+
                         <Card>
                             <h3>Goal</h3>
                             <input type='number' min={0} max={500} placeholder='Goal (kg)' ref={goalRef} />
@@ -100,7 +135,7 @@ const Home: NextPage = () => {
 
                         <Button text='Withdraw' onClick={handleWithdraw} />
                     </>
-                    : <p>Install Metamask to proceed</p>
+                    : <p>Install or login into Metamask to proceed</p>
                 }
             </main>
         </>

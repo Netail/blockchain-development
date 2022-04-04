@@ -1,6 +1,8 @@
+@import '../../styles/variables';
+
 .button {
-    background-color: #5f59f7;
-    color: #fff;
+    background-color: $color-highlight;
+    color: $color-text;
     font-size: 1rem;
     padding: 0.5rem 1rem;
     border: 0;

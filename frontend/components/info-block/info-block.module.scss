@@ -1,0 +1,31 @@
+@import '../../styles/variables';
+
+.root {
+    border-radius: 1rem;
+    padding: 1rem;
+    margin: 1rem;
+    box-shadow: 0 5px 11px 0 rgb(0 0 0 / 20%);
+    color: $color-text;
+}
+
+.error {
+    @extend .root;
+    background-color: $color-error;
+}
+
+.success {
+    @extend .root;
+    background-color: $color-success;
+}
+
+.info {
+    @extend .root;
+    background-color: $color-info;
+}
+
+.warning {
+    @extend .root;
+    background-color: $color-warning;
+}
+
+
