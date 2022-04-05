@@ -37,7 +37,7 @@ const Home: NextPage = () => {
 
         const goal = Number(goalRef.current?.value);
         const reward = web3?.utils.toWei(rewardRef.current?.value || "0.1", "ether");
-        if (goal < 1) {
+        if (goal < 1 || isNaN(goal)) {
             showInfoBlock('Input cannot be lower than 1', InfoBlockType.ERROR);
             return;
         }
