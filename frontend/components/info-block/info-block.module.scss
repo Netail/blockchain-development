@@ -9,22 +9,18 @@
 }
 
 .error {
-    @extend .root;
     background-color: $color-error;
 }
 
 .success {
-    @extend .root;
     background-color: $color-success;
 }
 
 .info {
-    @extend .root;
     background-color: $color-info;
 }
 
 .warning {
-    @extend .root;
     background-color: $color-warning;
 }
 

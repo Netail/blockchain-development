@@ -13,8 +13,10 @@ const Home: NextPage = () => {
     const [web3, setWeb3] = useState<Web3>();
     const [account, setAccount] = useState<string>();
     const [contract, setContract] = useState<Contract>();
-    const [info, setInfo] = useState<string>('');
-    const [infoType, setInfoType] = useState<InfoBlockType>(InfoBlockType.INFO);
+    const [info, setInfo] = useState({
+        text: '',
+        type: InfoBlockType.INFO,
+    });
     const goalRef = useRef<HTMLInputElement>(null);
     const rewardRef = useRef<HTMLInputElement>(null);
     const measurementRef = useRef<HTMLInputElement>(null);
@@ -33,7 +35,7 @@ const Home: NextPage = () => {
     const handleSetGoal = () => {
         if (!contract) return;
 
-        setInfo('');
+        resetInfoBlock();
 
         const goal = Number(goalRef.current?.value);
         const reward = web3?.utils.toWei(rewardRef.current?.value || "0.1", "ether");
@@ -56,7 +58,7 @@ const Home: NextPage = () => {
     const handleAddMeasurement = () => {
         if (!contract) return;
 
-        setInfo('');
+        resetInfoBlock();
 
         const measurement = Number(measurementRef.current?.value);
         if (measurement < 1 || isNaN(measurement)) {
@@ -77,7 +79,7 @@ const Home: NextPage = () => {
     const handleWithdraw = () => {
         if (!contract) return;
 
-        setInfo('');
+        resetInfoBlock();
 
         contract.methods.withdraw().send({
             from: account,
@@ -90,12 +92,15 @@ const Home: NextPage = () => {
     }
 
     const showInfoBlock = (text: string, type: InfoBlockType) => {
-        setInfo(text);
-        setInfoType(type);
+        setInfo({ text, type });
 
         setTimeout(() => {
-            setInfo('');
+            resetInfoBlock();
         }, 3000);
+    }
+
+    const resetInfoBlock = () => {
+        setInfo({ text: '', type: InfoBlockType.INFO });
     }
 
     useEffect(() => {
@@ -115,7 +120,7 @@ const Home: NextPage = () => {
                     <>
                         <p>Hello, { account }</p>
 
-                        {info.length > 0 && <InfoBlock text={info} type={infoType} />}
+                        {info.text.length > 0 && <InfoBlock text={info.text} type={info.type} />}
 
                         <Card>
                             <h3>Goal</h3>

@@ -1,9 +1,13 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import css from './card.module.scss';
 
-const Card: FC = ({ children }) => {
+interface CardProps {
+    children: ReactNode;
+}
+
+const Card: FC<CardProps> = ({ children }) => {
     return (
-        <div className={css.card}>
+        <div className={css.root}>
             {children}
         </div>
     );

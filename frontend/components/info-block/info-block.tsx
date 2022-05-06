@@ -16,6 +16,7 @@ interface InfoBlockProps {
 
 const InfoBlock: FC<InfoBlockProps> = ({ text, type = InfoBlockType.INFO }) => {
     const classes = classNames(
+        css.root,
         css[type.toString().toLowerCase()]
     );
 

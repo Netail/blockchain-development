@@ -8,7 +8,7 @@ interface ButtonProps {
 
 const Button: FC<ButtonProps> = ({ text, onClick }) => {
     return (
-        <button className={css.button} onClick={onClick}>
+        <button className={css.root} onClick={onClick}>
             {text}
         </button>
     );

@@ -1,15 +1,22 @@
 # Blockchain Development
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
+This is a dApp project made for an assignment of the Amsterdam University of Applied Sciences.
 
-Try running some of the following tasks:
+The project subject is a weight tracker which let's you set a weight goal, add weight measurements and gives you a reward in the form of an ERC271 (NFT) when the goal has been reached.
 
-```shell
-npx hardhat accounts
-npx hardhat compile
-npx hardhat clean
-npx hardhat test
-npx hardhat node
-node scripts/deploy.js
-npx hardhat help
+## Structure
+
+```bash
+.
+├── frontend            # A Next.JS frontend to interact with the smart contract
+│   ├── components
+│   ├── constants
+│   ├── pages
+│   ├── public
+│   └── styles
+├── hardhat             # A Hardhat smart contract development environment 
+│   ├── contracts
+│   ├── scripts
+│   └── tests
+└── ipfs                # A local copy of the ERC271 (NFT) Metadata which is stored on the IPFS
 ```

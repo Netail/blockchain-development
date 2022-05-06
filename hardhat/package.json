@@ -1,23 +1,23 @@
 {
-    "name": "blockchain-development",
+    "name": "blockchain-development-hardhat",
     "version": "1.0.0",
     "main": "index.js",
     "repository": "https://github.com/Netail/blockchain-development.git",
     "author": "Netail <maikel.van.dort@gmail.com>",
     "license": "MIT",
     "devDependencies": {
-        "@nibbstack/erc721": "^2.6.1",
         "@nomiclabs/hardhat-ethers": "^2.0.5",
         "@nomiclabs/hardhat-waffle": "^2.0.3",
-        "@openzeppelin/contracts": "^4.5.0",
-        "@types/chai": "^4.3.0",
-        "@types/mocha": "^9.1.0",
-        "@types/node": "^17.0.22",
+        "@openzeppelin/contracts": "^4.6.0",
+        "@types/chai": "^4.3.1",
+        "@types/mocha": "^9.1.1",
+        "@types/node": "^17.0.31",
         "chai": "^4.3.6",
-        "ethereum-waffle": "^4.0.0-alpha.0",
-        "ethers": "^5.6.1",
-        "hardhat": "^2.9.1",
+        "dotenv": "^16.0.0",
+        "ethereum-waffle": "^4.0.0-alpha.23",
+        "ethers": "^5.6.5",
+        "hardhat": "^2.9.3",
         "ts-node": "^10.7.0",
-        "typescript": "^4.6.2"
+        "typescript": "^4.6.4"
     }
 }
